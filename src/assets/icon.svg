@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black background -->
+  <rect width="1024" height="1024" fill="#000000" rx="230" ry="230"/>
+  
+  <!-- Orange Z letter -->
+  <path d="M300 300 H724 L300 724 H724" 
+        stroke="#FF8C00" 
+        stroke-width="100" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        fill="none"/>
+</svg>

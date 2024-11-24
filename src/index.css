@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ion-color-primary: #3B82F6;
+  --ion-color-primary-rgb: 59, 130, 246;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  --ion-background-color: #111827;
+  --ion-background-color-rgb: 17, 24, 39;
+  --ion-text-color: #f3f4f6;
+  --ion-text-color-rgb: 243, 244, 246;
+  --ion-border-color: #374151;
+  
+  --ion-toolbar-background: #1f2937;
+  --ion-toolbar-color: #f3f4f6;
+  
+  --ion-item-background: #1f2937;
+  --ion-item-border-color: #374151;
+  
+  --ion-card-background: #1f2937;
+
+  /* Search bar customization */
+  --ion-searchbar-background: #1f2937;
+  --ion-searchbar-border-radius: 9999px;
+  --ion-searchbar-box-shadow: none;
+  --ion-searchbar-input-background: #1f2937;
+  --ion-searchbar-input-border-radius: 9999px;
+  --ion-searchbar-input-box-shadow: none;
+  --ion-searchbar-input-placeholder-color: #9ca3af;
+  --ion-searchbar-input-placeholder-opacity: 1;
+  --ion-searchbar-input-clear-button-color: #9ca3af;
+  --ion-searchbar-input-clear-button-opacity: 1;
+  --ion-searchbar-input-icon-color: #9ca3af;
+  --ion-searchbar-input-icon-opacity: 1;
+
+  /* Select customization */
+  --ion-select-background: #374151;
+  --ion-select-border-radius: 9999px;
+  --ion-select-box-shadow: none;
+  --ion-select-placeholder-color: #9ca3af;
+  --ion-select-placeholder-opacity: 1;
+  --ion-select-text-color: #f3f4f6;
+  --ion-select-icon-color: #9ca3af;
+  --ion-select-icon-opacity: 1;
+  --ion-select-interface-background: #1f2937;
+  --ion-select-interface-option-background: #374151;
+  --ion-select-interface-option-color: #ffffff;
+  --ion-select-interface-option-hover-background: #4b5563;
+  --ion-select-interface-option-selected-background: #3B82F6;
+  --ion-select-interface-option-selected-color: #ffffff;
+
+  /* Input customization */
+  --ion-input-background: #374151;
+  --ion-input-border-radius: 9999px;
+  --ion-input-box-shadow: none;
+  --ion-input-color: #f3f4f6;
+  --ion-input-placeholder-color: #9ca3af;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--ion-background-color);
+  color: var(--ion-text-color);
+}
+
+ion-content {
+  --background: var(--ion-background-color);
+}
+
+ion-item {
+  --background: var(--ion-item-background);
+  --border-color: var(--ion-item-border-color);
+}
+
+/* Searchbar specific styles */
+ion-searchbar {
+  --background: var(--ion-searchbar-background);
+  --border-radius: var(--ion-searchbar-border-radius);
+  --box-shadow: var(--ion-searchbar-box-shadow);
+  --cancel-button-color: var(--ion-text-color);
+  --clear-button-color: var(--ion-searchbar-input-clear-button-color);
+  --color: var(--ion-text-color);
+  --icon-color: var(--ion-searchbar-input-icon-color);
+  --placeholder-color: var(--ion-searchbar-input-placeholder-color);
+}
+
+/* Select specific styles */
+ion-select {
+  --background: var(--ion-select-background);
+  --border-radius: var(--ion-select-border-radius);
+  --box-shadow: var(--ion-select-box-shadow);
+  --color: var(--ion-select-text-color);
+  --placeholder-color: var(--ion-select-placeholder-color);
+  min-height: 48px;
+  padding: 0 1.5rem;
+}
+
+ion-select::part(icon) {
+  color: var(--ion-select-icon-color);
+  opacity: var(--ion-select-icon-opacity);
+}
+
+/* Action sheet and popover styles for select */
+ion-action-sheet.select-action-sheet,
+ion-popover.select-popover {
+  --background: var(--ion-select-interface-background);
+  --color: var(--ion-select-interface-option-color);
+}
+
+ion-action-sheet.select-action-sheet::part(button),
+ion-popover.select-popover ion-item {
+  --background: var(--ion-select-interface-option-background);
+  --color: var(--ion-select-interface-option-color);
+  --background-hover: var(--ion-select-interface-option-hover-background);
+  --background-activated: var(--ion-select-interface-option-selected-background);
+  --color-activated: var(--ion-select-interface-option-selected-color);
+}
+
+ion-action-sheet.select-action-sheet::part(selected),
+ion-popover.select-popover ion-item.item-radio-checked {
+  --background: var(--ion-select-interface-option-selected-background);
+  --color: var(--ion-select-interface-option-selected-color);
+}
+
+/* Input specific styles */
+ion-input {
+  --background: var(--ion-input-background);
+  --border-radius: var(--ion-input-border-radius);
+  --box-shadow: var(--ion-input-box-shadow);
+  --color: var(--ion-input-color);
+  --placeholder-color: var(--ion-input-placeholder-color);
+  --padding-start: 1.5rem;
+  --padding-end: 1.5rem;
+  min-height: 48px;
+}
+
+/* Additional styles for select options */
+ion-select-option,
+ion-action-sheet-button {
+  color: #ffffff !important;
+}
+
+.select-interface-option {
+  --color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+ion-action-sheet .action-sheet-button-inner {
+  color: #ffffff !important;
+}
+
+ion-select-popover ion-item {
+  --color: #ffffff !important;
+}
