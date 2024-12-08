@@ -140,17 +140,17 @@ export default function ExclusionSettings({ onSettingsChange }: Props) {
 
   return (
     <div className="px-4 mb-12">
-      <h2 className="text-xl font-semibold mb-6 text-gray-100">Podešavanja</h2>
+      <h2 className="text-xl font-semibold mb-6 text-gray-100">Settings</h2>
       
       <IonCard className="bg-gray-800 rounded-xl overflow-hidden m-0 mb-6">
         <IonCardHeader>
-          <IonCardTitle className="text-gray-200">Izvori prihoda</IonCardTitle>
+          <IonCardTitle className="text-gray-200">Income Sources</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <div className="flex flex-col gap-4 mb-4">
             <IonInput
               value={newIncomeName}
-              placeholder="Naziv izvora prihoda"
+              placeholder="Income source name"
               onIonInput={e => setNewIncomeName(e.detail.value || '')}
               className="bg-gray-700 rounded-lg pl-6"
               style={{
@@ -163,7 +163,7 @@ export default function ExclusionSettings({ onSettingsChange }: Props) {
             />
             <IonInput
               value={newIncomePattern}
-              placeholder="Obrazac za prepoznavanje"
+              placeholder="Recognition pattern"
               onIonInput={e => setNewIncomePattern(e.detail.value || '')}
               className="bg-gray-700 rounded-lg pl-6"
               style={{
@@ -176,7 +176,7 @@ export default function ExclusionSettings({ onSettingsChange }: Props) {
             />
             <IonButton onClick={handleAddIncomeSource} color="primary">
               <Plus className="w-5 h-5 mr-1" />
-              Dodaj izvor prihoda
+              Add Income Source
             </IonButton>
           </div>
 
@@ -208,13 +208,13 @@ export default function ExclusionSettings({ onSettingsChange }: Props) {
 
       <IonCard className="bg-gray-800 rounded-xl overflow-hidden m-0">
         <IonCardHeader>
-          <IonCardTitle className="text-gray-200">Obrasci za isključivanje transakcija</IonCardTitle>
+          <IonCardTitle className="text-gray-200">Transaction Exclusion Patterns</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <div className="mb-4 flex gap-2">
             <IonInput
               value={newPattern}
-              placeholder="Unesite novi obrazac za isključivanje"
+              placeholder="Enter new exclusion pattern"
               onIonInput={e => setNewPattern(e.detail.value || '')}
               className="bg-gray-700 rounded-lg pl-6"
               style={{
@@ -227,7 +227,7 @@ export default function ExclusionSettings({ onSettingsChange }: Props) {
             />
             <IonButton onClick={handleAddRule} color="primary">
               <Plus className="w-5 h-5 mr-1" />
-              Dodaj
+              Add
             </IonButton>
           </div>
 

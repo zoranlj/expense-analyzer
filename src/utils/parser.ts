@@ -1,6 +1,6 @@
 import { parse } from 'date-fns';
 import { Transaction } from '../types';
-import { getCategories } from './categories';
+import { getCategories, normalizeKeyword } from './categories';
 
 // Fixed exchange rates
 export const EUR_RATE = 117.2;
@@ -43,7 +43,6 @@ export function parseTransactions(rawData?: string): Transaction[] {
 
   // Split the CSV data into lines and remove empty lines
   const lines = rawData.split('\n').filter(line => line.trim());
-
 
   // Skip the header row if it exists
   const startIndex = lines[0].includes('Datum') ? 1 : 0;
@@ -129,11 +128,11 @@ export function parseTransactions(rawData?: string): Transaction[] {
 }
 
 function categorizeTransaction(description: string): string {
-  const upperDesc = description.toUpperCase();
+  const normalizedDesc = normalizeKeyword(description);
   const categories = getCategories();
   
   for (const [category, keywords] of Object.entries(categories)) {
-    if (keywords.some(keyword => upperDesc.includes(keyword))) {
+    if (keywords.some(keyword => normalizedDesc.includes(normalizeKeyword(keyword)))) {
       return category;
     }
   }

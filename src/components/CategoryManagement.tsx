@@ -15,6 +15,7 @@ import {
 import { Trash2, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { CategoryData } from '../types';
+import { normalizeKeyword } from '../utils/categories';
 
 interface Props {
   categories: CategoryData;
@@ -30,7 +31,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
   const handleAddCategory = () => {
     if (!newCategory.trim()) {
       present({
-        message: 'Unesite naziv kategorije',
+        message: 'Please enter a category name',
         duration: 2000,
         position: 'bottom',
         color: 'warning'
@@ -40,7 +41,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
 
     if (categories[newCategory]) {
       present({
-        message: 'Kategorija već postoji',
+        message: 'Category already exists',
         duration: 2000,
         position: 'bottom',
         color: 'warning'
@@ -56,7 +57,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
     setNewCategory('');
 
     present({
-      message: 'Kategorija uspešno dodata',
+      message: 'Category added successfully',
       duration: 2000,
       position: 'bottom',
       color: 'success'
@@ -68,7 +69,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
     onCategoriesChange(remainingCategories);
 
     present({
-      message: 'Kategorija uspešno obrisana',
+      message: 'Category deleted successfully',
       duration: 2000,
       position: 'bottom',
       color: 'success'
@@ -78,7 +79,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
   const handleAddKeyword = () => {
     if (!selectedCategory) {
       present({
-        message: 'Izaberite kategoriju',
+        message: 'Please select a category',
         duration: 2000,
         position: 'bottom',
         color: 'warning'
@@ -88,7 +89,20 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
 
     if (!newKeyword.trim()) {
       present({
-        message: 'Unesite ključnu reč',
+        message: 'Please enter a keyword',
+        duration: 2000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return;
+    }
+
+    const normalizedNewKeyword = normalizeKeyword(newKeyword);
+    const existingKeywords = categories[selectedCategory].map(k => normalizeKeyword(k));
+
+    if (existingKeywords.includes(normalizedNewKeyword)) {
+      present({
+        message: 'Keyword already exists in this category',
         duration: 2000,
         position: 'bottom',
         color: 'warning'
@@ -98,13 +112,13 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
 
     const updatedCategories = {
       ...categories,
-      [selectedCategory]: [...categories[selectedCategory], newKeyword.trim()]
+      [selectedCategory]: [...categories[selectedCategory], normalizedNewKeyword]
     };
     onCategoriesChange(updatedCategories);
     setNewKeyword('');
 
     present({
-      message: 'Ključna reč uspešno dodata',
+      message: 'Keyword added successfully',
       duration: 2000,
       position: 'bottom',
       color: 'success'
@@ -112,14 +126,15 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
   };
 
   const handleDeleteKeyword = (category: string, keyword: string) => {
+    const normalizedKeyword = normalizeKeyword(keyword);
     const updatedCategories = {
       ...categories,
-      [category]: categories[category].filter(k => k !== keyword)
+      [category]: categories[category].filter(k => normalizeKeyword(k) !== normalizedKeyword)
     };
     onCategoriesChange(updatedCategories);
 
     present({
-      message: 'Ključna reč uspešno obrisana',
+      message: 'Keyword deleted successfully',
       duration: 2000,
       position: 'bottom',
       color: 'success'
@@ -128,17 +143,17 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
 
   return (
     <div className="px-4 mb-12">
-      <h2 className="text-xl font-semibold mb-6 text-gray-100">Upravljanje kategorijama</h2>
+      <h2 className="text-xl font-semibold mb-6 text-gray-100">Category Management</h2>
       
       <IonCard className="bg-gray-800 rounded-xl overflow-hidden m-0 mb-6">
         <IonCardHeader>
-          <IonCardTitle className="text-gray-200">Nova kategorija</IonCardTitle>
+          <IonCardTitle className="text-gray-200">New Category</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <div className="flex gap-2">
             <IonInput
               value={newCategory}
-              placeholder="Naziv kategorije"
+              placeholder="Category name"
               onIonInput={e => setNewCategory(e.detail.value || '')}
               className="bg-gray-700 rounded-lg"
               style={{
@@ -151,7 +166,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
             />
             <IonButton onClick={handleAddCategory} color="primary">
               <Plus className="w-5 h-5 mr-1" />
-              Dodaj
+              Add
             </IonButton>
           </div>
         </IonCardContent>
@@ -159,13 +174,13 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
 
       <IonCard className="bg-gray-800 rounded-xl overflow-hidden m-0 mb-6">
         <IonCardHeader>
-          <IonCardTitle className="text-gray-200">Dodaj ključnu reč</IonCardTitle>
+          <IonCardTitle className="text-gray-200">Add Keyword</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <div className="flex flex-col gap-4">
             <IonSelect
               value={selectedCategory}
-              placeholder="Izaberi kategoriju"
+              placeholder="Select category"
               onIonChange={e => setSelectedCategory(e.detail.value)}
               className="bg-gray-800 rounded-lg h-[48px] w-full flex items-center px-4"
               interface="popover"
@@ -198,7 +213,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
             <div className="flex gap-2">
               <IonInput
                 value={newKeyword}
-                placeholder="Nova ključna reč"
+                placeholder="New keyword"
                 onIonInput={e => setNewKeyword(e.detail.value || '')}
                 className="bg-gray-700 rounded-lg"
                 style={{
@@ -211,7 +226,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
               />
               <IonButton onClick={handleAddKeyword} color="primary">
                 <Plus className="w-5 h-5 mr-1" />
-                Dodaj
+                Add
               </IonButton>
             </div>
           </div>
@@ -220,7 +235,7 @@ export default function CategoryManagement({ categories, onCategoriesChange }: P
 
       <IonCard className="bg-gray-800 rounded-xl overflow-hidden m-0">
         <IonCardHeader>
-          <IonCardTitle className="text-gray-200">Postojeće kategorije</IonCardTitle>
+          <IonCardTitle className="text-gray-200">Existing Categories</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <IonList className="bg-transparent">

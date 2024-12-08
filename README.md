@@ -1,10 +1,10 @@
-Expense Analyzer
+# Expense Analyzer
 
-A sophisticated expense tracking and analysis application built with Ionic React, designed to help users understand and manage their financial transactions from Intesa Bank exports.
+A sophisticated expense tracking and analysis application built with Ionic React, designed to help users understand and manage their financial transactions from bank exports.
 
 ## 🚀 Tech Stack
 
-- **Frontend Framework**: React 18.3.1
+- **Frontend Framework**: React 18.2.0
 - **UI Framework**: Ionic React 7.8.0
 - **Styling**: Tailwind CSS 3.4.1
 - **Charts**: Chart.js 4.4.2 with React-ChartJS-2 5.2.0
@@ -12,7 +12,7 @@ A sophisticated expense tracking and analysis application built with Ionic React
 - **Utilities**: Lodash 4.17.21
 - **Icons**: Lucide React 0.344.0
 - **Excel Processing**: XLSX 0.18.5
-- **Build Tool**: Vite
+- **Build Tool**: Vite 5.1.4
 - **Mobile Platform**: Capacitor for Android deployment
 - **TypeScript**: For type safety and better developer experience
 - **Storage**: Browser's LocalStorage for data persistence
@@ -63,77 +63,36 @@ A sophisticated expense tracking and analysis application built with Ionic React
 - Real-time application of exclusion rules
 - Default rules for common exclusions
 
-## 🧩 Components
+## 🛠️ Core Features
 
-### ImportButton
-- Excel file import functionality
-- Supports .xlsx and .xls formats
-- Automatic data parsing and validation
-- Success/error notifications
-- Deduplication of transactions
-- Persistent storage of imported data
+### Transaction Management
+- Import from Excel files
+- Automatic categorization
+- Currency conversion
+- Duplicate detection
+- Monthly averages calculation
+- Category-based analysis
 
-### ExpenseSummary
-- Displays total income and expenses
-- Shows monthly averages
-- Tracks multiple income sources
-- Provides date range information
-- Applies customizable exclusion rules
-
-### ExpenseCharts
-- Visualizes expense distribution
-- Shows category-wise monthly averages
-- Interactive chart elements
-- Color-coded category representation
-- Respects transaction exclusion settings
-
-### CategoryManagement
-- Add and remove categories
-- Manage keywords within categories
+### Category System
+- Dynamic categories
+- Keyword-based matching
+- Custom category creation
+- Category management interface
 - Real-time updates
-- Persistent storage
-- User-friendly interface
-- Keyword management
 
-### ExclusionSettings
-- Manage transaction exclusion patterns
-- Toggle individual rules
-- Add new exclusion patterns
-- Remove existing patterns
-- Real-time rule application
+### Financial Analysis
+- Monthly summaries
+- Category breakdowns
+- Income source tracking
+- Expense patterns
+- Trend analysis
 
-### TransactionList
-- Detailed transaction view
-- Advanced search functionality
-- Multiple sorting options
-- Transaction filtering capabilities
-- Exclusion rules integration
-
-## 🛠️ Core Utilities
-
-### Parser (utils/parser.ts)
-- Processes raw transaction data
-- Handles Excel file data
-- Manages currency conversions
-- Handles date parsing
-- Implements transaction categorization
-- Validates and sanitizes input data
-
-### Categories (utils/categories.ts)
-- Manages category definitions
-- Handles keyword assignments
-- Supports category modifications
-- Maintains category hierarchy
-- Persistent storage
-- Category validation
-
-### Settings (utils/settings.ts)
-- Manages exclusion rules
-- Handles settings persistence
-- Provides default exclusion patterns
-- Validates transaction exclusions
-- Settings storage
-- Rule management
+### User Interface
+- Dark mode design
+- Responsive layout
+- Mobile-first approach
+- Intuitive navigation
+- Real-time updates
 
 ## 📊 Data Processing
 
@@ -143,35 +102,11 @@ A sophisticated expense tracking and analysis application built with Ionic React
 - Case-insensitive matching
 - Special transaction handling
 
-### Data Persistence
-- Automatic saving to LocalStorage
-- Transaction deduplication
-- Data recovery on page load
-- Error handling and validation
-- Settings persistence
-- Exclusion rules storage
-
 ### Currency Handling
 Fixed conversion rates:
 - EUR: 117.2 RSD
 - USD: 107.5 RSD
 - HUF: 0.3 RSD
-
-## 🔍 Search and Filter Features
-
-- Full-text search across transactions
-- Category-based filtering
-- Date range filtering
-- Amount-based sorting
-- Multiple view options
-- Exclusion rules integration
-
-## 📱 Mobile Features
-
-- Responsive design
-- Touch gesture support
-- Native-like experience
-- Android platform support
 
 ## 🚀 Getting Started
 
@@ -202,7 +137,7 @@ npm run android
 
 ## 💾 Data Import Guide
 
-1. Export your transactions from Intesa Bank in Excel format
+1. Export your transactions from your bank in Excel format
 2. Click the upload icon in the app's toolbar
 3. Select your Excel file
 4. The app will automatically:

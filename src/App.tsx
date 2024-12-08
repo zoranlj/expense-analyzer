@@ -5,8 +5,7 @@ import {
   IonPage, 
   IonTitle, 
   IonToolbar, 
-  IonButtons,
-  setupIonicReact 
+  IonButtons
 } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { parseTransactions } from './utils/parser';
@@ -18,22 +17,9 @@ import ExclusionSettings from './components/ExclusionSettings';
 import ImportButton from './components/ImportButton';
 import { Transaction, Settings, CategoryData } from './types';
 import { getSettings } from './utils/settings';
-import { getCategories, updateCategories } from './utils/categories';
+import { getCategories, updateCategories, recategorizeTransactions } from './utils/categories';
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
-/* Theme variables */
-import './theme/variables.css';
-
-setupIonicReact();
-
-const STORAGE_KEY = 'troskovi_transactions';
+const STORAGE_KEY = 'expense_transactions';
 
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -122,6 +108,11 @@ function App() {
   const handleCategoriesChange = (newCategories: CategoryData) => {
     setCategories(newCategories);
     updateCategories(newCategories);
+    
+    setTransactions(prevTransactions => {
+      const recategorized = recategorizeTransactions(prevTransactions);
+      return [...recategorized];
+    });
   };
 
   return (
@@ -129,13 +120,13 @@ function App() {
       <IonPage>
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle>Troškovi</IonTitle>
+            <IonTitle>Expense Analyzer</IonTitle>
             <IonButtons slot="end">
               <ImportButton onDataImported={handleDataImported} />
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="ion-padding" style={{ '--padding-top': '2rem' }}>
+        <IonContent className="ion-padding">
           <ExpenseSummary transactions={transactions} settings={settings} />
           <ExpenseCharts transactions={transactions} settings={settings} />
           <ExclusionSettings onSettingsChange={handleSettingsChange} />

@@ -1,7 +1,7 @@
 import { IonChip } from '@ionic/react';
 import { Transaction, CategoryTotal, Settings } from '../types';
-import { differenceInMonths, startOfMonth } from 'date-fns';
 import { shouldExcludeTransaction } from '../utils/settings';
+import { getDateRange } from '../utils/dates';
 
 interface Props {
   transactions: Transaction[];
@@ -14,11 +14,9 @@ export default function ExpenseCharts({ transactions, settings }: Props) {
     !shouldExcludeTransaction(t.description, settings)
   );
 
-  // Calculate date range for monthly average
+  // Calculate date range for monthly average using consistent end date
   const expenseDates = expenseTransactions.map(t => t.date);
-  const oldestExpenseDate = expenseDates.length > 0 ? new Date(Math.min(...expenseDates.map(d => d.getTime()))) : new Date();
-  const newestExpenseDate = expenseDates.length > 0 ? new Date(Math.max(...expenseDates.map(d => d.getTime()))) : new Date();
-  const expenseMonthsDiff = differenceInMonths(startOfMonth(newestExpenseDate), startOfMonth(oldestExpenseDate)) + 1;
+  const { monthsDiff: expenseMonthsDiff } = getDateRange(expenseDates);
 
   const categoryTotals = expenseTransactions.reduce((acc: CategoryTotal[], curr) => {
     const existingCategory = acc.find(c => c.category === curr.category);
@@ -63,7 +61,7 @@ export default function ExpenseCharts({ transactions, settings }: Props) {
 
   return (
     <div className="px-4 mb-12">
-      <h2 className="text-xl font-semibold mb-6 text-gray-100">Prosečni mesečni troškovi po kategorijama</h2>
+      <h2 className="text-xl font-semibold mb-6 text-gray-100">Average Monthly Expenses by Category</h2>
       <div className="bg-gray-800 p-8 rounded-xl">
         <div className="flex flex-wrap gap-3">
           <IonChip
@@ -71,7 +69,7 @@ export default function ExpenseCharts({ transactions, settings }: Props) {
             style={{ '--background': 'none' }}
           >
             <span className="px-1">
-              Ukupno: {totalMonthlyAverageEur.toLocaleString('sr-RS', { maximumFractionDigits: 2 })}€/mes.
+              Total: {totalMonthlyAverageEur.toLocaleString('en-US', { maximumFractionDigits: 2 })}€/mo.
             </span>
           </IonChip>
           {categoryTotals.map((cat, index) => (
@@ -81,7 +79,7 @@ export default function ExpenseCharts({ transactions, settings }: Props) {
               style={{ '--background': 'none' }}
             >
               <span className="px-1">
-                {cat.category} ({cat.percentage.toFixed(1)}%) - {cat.totalEur.toLocaleString('sr-RS', { maximumFractionDigits: 2 })}€/mes.
+                {cat.category} ({cat.percentage.toFixed(1)}%) - {cat.totalEur.toLocaleString('en-US', { maximumFractionDigits: 2 })}€/mo.
               </span>
             </IonChip>
           ))}
